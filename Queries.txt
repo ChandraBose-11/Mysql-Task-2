@@ -1,0 +1,83 @@
+use guviDBdesign;
+
+create table users (
+user_id int primary key ,
+user_name VARCHAR(30),
+user_email VARCHAR(30),
+user_password VARCHAR(30)
+);
+
+create table student (
+student_id int primary key ,
+user_id int,
+student_name VARCHAR(30),
+Batch VARCHAR(30),
+Address VARCHAR(40),
+Phone int,
+course VARCHAR(30),
+foreign key (user_id)  references users (user_id)
+);
+
+create table mentor(
+mentor_id int primary key,
+user_id int,
+mentor_name VARCHAR(30),
+Address VARCHAR(40),
+Phone int,
+Work_exp VARCHAR(10),
+designation VARCHAR(20),
+foreign key (user_id)  references users (user_id)
+);
+
+create table course (
+course_id int primary key,
+course_name VARCHAR(30),
+course_duration VARCHAR(30),
+user_id int,
+foreign key (user_id)  references users (user_id)
+);
+
+create table topic (
+topic_id int primary key,
+topic_name VARCHAR(30),
+topic_description VARCHAR(30),
+section_time VARCHAR(30),
+mentor_id int,
+foreign key (mentor_id)  references mentor (mentor_id)
+);
+
+create table task(
+task_id int primary key,
+task_name VARCHAR(30),
+task_description VARCHAR(30),
+task_submission VARCHAR(30),
+topic_id int,
+foreign key (topic_id)  references topic (topic_id)
+);
+
+create table attendance(
+attendance_id int primary key,
+user_id int,
+topic_id int,
+task_id int,
+course_id int,
+Attendance_status VARCHAR(20),
+foreign key (course_id)  references course (course_id),
+foreign key (user_id)  references users(user_id),
+foreign key (topic_id)  references topic (topic_id),
+foreign key (task_id)  references task (task_id)
+);
+
+create table Queries (
+queries_id int primary key,
+mentor_id int,
+student_id int,
+topic_id int,
+Query_topic VARCHAR(30),
+Query_answer VARCHAR(30),
+foreign key (mentor_id)  references mentor (mentor_id),
+foreign key (student_id)  references student (student_id),
+foreign key (topic_id)  references topic (topic_id)
+);
+
+
